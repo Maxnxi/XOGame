@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
     @IBOutlet var winnerLabel: UILabel!
     @IBOutlet var restartButton: UIButton!
     
+    
+    
     private var counter: Int = 0
     public let gameBoard = Gameboard()
     private lazy var referee = Referee(gameboard: gameBoard)
@@ -65,7 +67,7 @@ class GameViewController: UIViewController {
             currentState = GameEndState(winnerPlayer: nil, gameViewControler: self)
             return
         }
-        
+
         if let playerState = currentState as? PlayerGameState {
             let nextPlayer = playerState.player.next
             currentState = PlayerGameState(player: nextPlayer,
@@ -74,6 +76,7 @@ class GameViewController: UIViewController {
                                            gameboardView: gameboardView,
                                            markViewPrototype: nextPlayer.markViewPrototype)
         }
+        
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
