@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ComputerTimeState: GameState {
+class ComputerGameState: GameState {
     var isMoveCompleted: Bool = false
     let player: Player!
     weak var gameViewControler: GameViewController?
@@ -30,8 +30,22 @@ class ComputerTimeState: GameState {
         
         guard !isMoveCompleted else { return }
         
-        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: position)
-        gameViewControler?.gameBoard.setPlayer(player, at: position)
+        var newPosition = position
+        
+//        if player == .second {
+//            var resultOfCheck:Bool? = nil
+//            repeat {
+//                let computer = ComputerDoMove(gameBoard: gameBoard)
+//                let computerPosition = computer.doMove()
+//                resultOfCheck = gameBoard.contains(player: player, at: [computerPosition])
+//                newPosition = computerPosition
+//                print("position", computerPosition)
+//            } while (resultOfCheck != false)
+//        }
+        
+        
+        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: newPosition)
+        gameViewControler?.gameBoard.setPlayer(player, at: newPosition)
         
         isMoveCompleted = true
     }

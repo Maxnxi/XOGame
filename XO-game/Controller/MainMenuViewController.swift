@@ -20,6 +20,7 @@ class MainMenuViewController: UIViewController {
     @IBAction func playGameTwoPlayersBtnWasPrssd(_ sender: Any) {
         guard let view = storyboard?.instantiateViewController(withIdentifier: "gameViewController") as? GameViewController else { return }
         //TO DO -> configure vc
+        //по умолчанию false
         //view.gameVsComputer = false
         present(view, animated: true, completion: nil)
         
@@ -30,7 +31,7 @@ class MainMenuViewController: UIViewController {
     @IBAction func playGameWithComputers(_ sender: Any) {
         guard let view = storyboard?.instantiateViewController(withIdentifier: "gameViewController") as? GameViewController else { return }
         //TO DO -> configure vc
-        //view.gameVsComputer = true
+        view.gameVsComputer = true
         
         present(view, animated: true, completion: nil)
     }

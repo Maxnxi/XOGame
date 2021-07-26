@@ -30,9 +30,14 @@ class PlayerGameState: GameState {
         guard !isMoveCompleted else { return }
         
 //        let markView = player == .first ? XView() : OView()
-        Logger.shared.log(action: .playerSetMarkView(player: player, position: position))
-        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: position)
-        gameViewControler?.gameBoard.setPlayer(player, at: position)
+        // Предыдущая версия
+//        Logger.shared.log(action: .playerSetMarkView(player: player, position: position))
+//        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: position)
+//        gameViewControler?.gameBoard.setPlayer(player, at: position)
+        
+        //ДЗ №4 п.3 Command
+        let command = PlayerMoveCommand(player: player, position: position, gameBoard: gameBoard)
+        InvokerPlayerMoveCommand.shared.addCommand(command: command)
         
         isMoveCompleted = true
     }
