@@ -12,4 +12,5 @@ protocol GameState: AnyObject {
     var isMoveCompleted: Bool { get }
     func addSign(at position: GameboardPosition)
     func begin()
+    
 }

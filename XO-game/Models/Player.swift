@@ -16,6 +16,7 @@ public enum Player: CaseIterable {
         switch self {
         case .first: return .second
         case .second: return .first
+        
         }
     }
     

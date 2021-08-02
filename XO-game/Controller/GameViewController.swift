@@ -16,6 +16,8 @@ class GameViewController: UIViewController {
     @IBOutlet var winnerLabel: UILabel!
     @IBOutlet var restartButton: UIButton!
     
+    var gameVsComputer: Bool = false
+    
     private var counter: Int = 0
     public let gameBoard = Gameboard()
     private lazy var referee = Referee(gameboard: gameBoard)
@@ -33,7 +35,7 @@ class GameViewController: UIViewController {
         
         gameboardView.onSelectPosition = { [weak self] position in
             guard let self = self else { return }
-            
+           
             self.currentState.addSign(at: position)
             self.counter += 1
             if self.currentState.isMoveCompleted {
@@ -60,20 +62,42 @@ class GameViewController: UIViewController {
             return
         }
         
-        if counter >= 9 {
+        if counter >= 10 {
             Logger.shared.log(action: .gameFinished(winner: nil))
             currentState = GameEndState(winnerPlayer: nil, gameViewControler: self)
             return
         }
         
-        if let playerState = currentState as? PlayerGameState {
-            let nextPlayer = playerState.player.next
-            currentState = PlayerGameState(player: nextPlayer,
-                                           gameViewControler: self,
-                                           gameBoard: gameBoard,
-                                           gameboardView: gameboardView,
-                                           markViewPrototype: nextPlayer.markViewPrototype)
+        if gameVsComputer == true {
+            if let playerState = currentState as? ComputerGameState {
+                let nextPlayer = playerState.player.next
+                currentState = ComputerGameState(player: nextPlayer,
+                                               gameViewControler: self,
+                                               gameBoard: gameBoard,
+                                               gameboardView: gameboardView,
+                                               markViewPrototype: nextPlayer.markViewPrototype)
+            }
+            
+        } else {
+            if let playerState = currentState as? PlayerGameState {
+                
+//                let nextPlayer = playerState.player.next
+                //ДЗ №4 п.3
+                var nextPlayer:Player = .first
+                if counter >= 5 {
+                    nextPlayer = .second
+                }
+                
+                currentState = PlayerGameState(player: nextPlayer,
+                                               gameViewControler: self,
+                                               gameBoard: gameBoard,
+                                               gameboardView: gameboardView,
+                                               markViewPrototype: nextPlayer.markViewPrototype)
+            }
         }
+
+        
+        
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {

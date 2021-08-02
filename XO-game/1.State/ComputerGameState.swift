@@ -1,14 +1,14 @@
 //
-//  PlayerGameState.swift
+//  ComputerGameState.swift
 //  XO-game
 //
-//  Created by Veaceslav Chirita on 19.07.2021.
+//  Created by Maksim on 25.07.2021.
 //  Copyright © 2021 plasmon. All rights reserved.
 //
 
 import Foundation
 
-class PlayerGameState: GameState {
+class ComputerGameState: GameState {
     var isMoveCompleted: Bool = false
     let player: Player!
     weak var gameViewControler: GameViewController?
@@ -27,17 +27,25 @@ class PlayerGameState: GameState {
     }
     
     func addSign(at position: GameboardPosition) {
+        
         guard !isMoveCompleted else { return }
         
-//        let markView = player == .first ? XView() : OView()
-        // Предыдущая версия
-//        Logger.shared.log(action: .playerSetMarkView(player: player, position: position))
-//        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: position)
-//        gameViewControler?.gameBoard.setPlayer(player, at: position)
+        var newPosition = position
         
-        //ДЗ №4 п.3 Command
-        let command = PlayerMoveCommand(player: player, position: position, gameBoard: gameBoard)
-        InvokerPlayerMoveCommand.shared.addCommand(command: command)
+//        if player == .second {
+//            var resultOfCheck:Bool? = nil
+//            repeat {
+//                let computer = ComputerDoMove(gameBoard: gameBoard)
+//                let computerPosition = computer.doMove()
+//                resultOfCheck = gameBoard.contains(player: player, at: [computerPosition])
+//                newPosition = computerPosition
+//                print("position", computerPosition)
+//            } while (resultOfCheck != false)
+//        }
+        
+        
+        gameViewControler?.gameboardView.placeMarkView(markViewPrototype, at: newPosition)
+        gameViewControler?.gameBoard.setPlayer(player, at: newPosition)
         
         isMoveCompleted = true
     }

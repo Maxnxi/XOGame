@@ -28,4 +28,5 @@ class LogInvoker {
         commands.forEach { receiver.sendMessage(message: $0.logMessage) }
         commands = []
     }
+    
 }
